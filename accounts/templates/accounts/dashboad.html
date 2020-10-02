@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Database</title>
+</head>
+<body>
+<h1> Dashboard </h1>
+
+<br>
+		 <div class="col-md-7">
+		      <h5>LAST 5 Superheroes</h5>
+		 <hr>
+         <div class="card card-body">
+         
+          <table class="table table-sm">
+             <tr>
+
+                   <th>Nickname</th>
+                   <th>Real_name</th>
+				   <th>Origin_description</th>
+                    <th>Superpowers</th>
+                   <th>Catch_phrase</th>
+                   <th>image</th>
+				   <th>Edit</th>
+				   <th>Delete</th>
+				   </tr>
+				   
+				    {% for order in orders %}
+				       <tr>
+				        <td><a class="btn btn-sm btn-info"   href="{% url 'superhero' superhero.id %}">View</a></td>
+					    <td>{{order.product}}</td>
+					   <td>{{order.date_created}}</td>
+					   <td>{{order.status}}</td>
+					   <td><a class="btn btn-sm btn-info"  href="{% url 'edit_superhero' superhero.id %}">Edit</a></td>
+					   
+					    <td><a class="btn btn-sm btn-danger"  href="{% url 'delete_superhero' superhero.id %}">Delete</a></td>
+					   </tr>
+				   
+				   {% endfor %}
+				   
+				 
+				   
+				   
+				   
+				   
+				</table>
+             </div>
+           </div>
+  
+
+
+
+
+</body>
+</html>        

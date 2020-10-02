@@ -1,0 +1,123 @@
+{%  extends 'accounts/main.html' %}
+
+{% block content %}
+
+
+
+<style>
+
+.profile-pic{
+
+    max-width: 200px;
+    max-height:200px;
+    margin: 1em;
+     
+}
+
+.img li {
+
+   max-width: max-content;
+   max-height:max-content;
+    list-style:none;
+    border:15px;
+    margin: 3% 3% 0 0%;
+    text-align:center;
+    display:inline-block;
+}
+
+</style>
+
+
+ 
+<ul class="img">
+ {% for superhero in page.object_list %}
+  <li>
+    
+    <img  src="{{superhero.profile_pic.url}}"   alt="Фотография 1" width="210"  height="150" title="{{superhero.nickname}}">
+    <div>{{superhero.nickname}}</div>
+    
+     </li>
+     {% endfor %}
+
+</ul>
+
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item  {% if not prev_page_url %} disabled {% endif %}">
+      <a class="page-link" href="{{ prev_page_url}}" tabindex="-1" aria-disabled="true">Previous</a>
+    </li>
+
+    
+  
+  {% for n in page.paginator.page_range %}
+        {% if page.number == n %}
+    <li class="page-item active" aria-current="page"><a class="page-link" href="?page={{ n }}">{{ n }} <span class="sr-only">(current)</span></a>    
+   </li>
+    {% elif n > page.number|add:-3 and n < page.number|add:3 %}
+     <li class="page-item">
+     <a class="page-link" href="?page={{ n }}">{{ n }}</a>
+     </li>
+
+ {% endif %}
+ 
+ {% endfor %}
+
+
+
+    <li class="page-item {% if not next_page_url %} disabled {% endif %}">
+      <a class="page-link" href="{{ next_page_url}}">Next</a>
+    </li>
+  </ul>
+</nav>
+
+
+		<center><h4> Superheroes</h4></div></center>
+	
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="{% url 'create_superhero' %}">Create Superhero</a>
+         
+
+
+			<table  class="table table-sm">
+				<tr>
+				    <th><center>Nickname</center></th>
+					<th><center>Real_name</center></th>
+					<th><center>Origin_description</center></th>
+					<th><center>Superpowers</center></th>
+					<th><center>Catch_phrase</center></th>
+					<th><center>Edit</center></th>
+					<th><center>Remove</center></th>
+					<th><center>Image</center></th>
+					
+				</tr>
+              
+            {% for superhero in superheroes %}
+                      <tr>
+
+                    <td>{{superhero.nickname}}</td>
+                    <td>{{superhero.realname}}</td>
+                    <td>{{superhero.origin_desription}}</td>
+                    <td>{{superhero.superpowers}}</td>
+                    <td>{{superhero.catch_phrase}}</td>
+                    <td><a class="btn btn-sm btn-info" href="{% url 'edit_superhero' superhero.id %}">Edit</a></td>
+                     <td><a class="btn btn-sm btn-danger" href="{% url 'delete_superhero' superhero.id %}">Delete</a></td>
+                 <td><img img class="profile-pic"  src="{{superhero.profile_pic.url}}"></td>
+
+
+                    
+
+                    </tr>
+
+                 {% endfor %}
+
+
+
+			</table>
+		</center>
+	
+
+
+
+{% endblock %}
+
